@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+    margin-top: 50px;
+}
+
+#micButton {
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#micButton img {
+    width: 40px;
+    height: 40px;
+}
+
+#micButton:hover {
+    background-color: #0056b3;
+}
+
+#command {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+}

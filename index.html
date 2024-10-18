@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Voice Assistant</title>
+</head>
+<body>
+    <h1>Voice Assistant</h1>
+    <button id="micButton" onclick="startRecognition()">
+        <img src="microphone-icon.png" alt="Microphone Icon">
+    </button>
+    <p id="command"></p>
+
+    <script>
+        function startRecognition() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+
+                recognition.start();
+
+                recognition.onresult = function(event) {
+                    const result = event.results[0][0].transcript;
+                    document.getElementById('command').textContent = `You said: ${result}`;
+                    alert(`You said: ${result}`);
+                    
+                    fetch(`/process-command?command=${result}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            alert(`Assistant: ${data.response}`);
+                        });
+                };
+
+                recognition.onerror = function(event) {
+                    alert('Error occurred in recognition: ' + event.error);
+                };
+            } else {
+                alert('Speech recognition not supported in this browser.');
+            }
+        }
+    </script>
+</body>
+</html>
